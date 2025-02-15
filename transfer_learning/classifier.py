@@ -151,8 +151,9 @@ if __name__ == '__main__':
 
     custom_cnn = CustomCNN(num_classes=4)
     print('Custom CNN: {}'.format(custom_cnn))
-    run_classifier(custom_cnn, epochs, batch_size, data_batches,   './models/Custom_CNN.pth')
-    
+    run_classifier(custom_cnn, epochs, batch_size, data_batches, '../models/Custom_CNN.pth')
+    # evaluating_classifier(custom_cnn, data_batches, model_path='../models/Custom_CNN.pth')
+
     # VGG16 freeze top layers
     vgg16_model = models.vgg16(weights=True)
     vgg16_model = freeze_top_layers(vgg16_model, 1)
@@ -160,8 +161,9 @@ if __name__ == '__main__':
     num_ftrs = vgg16_model.classifier[6].in_features
     vgg16_model.fc = nn.Linear(num_ftrs, 4)
     print('VGG16_freezing top layers: {}'.format(vgg16_model))
-    saving_path_VGG16 = './models/VGG16_freeze_top_layers.pth'
+    saving_path_VGG16 = '../models/VGG16_freeze_top_layers.pth'
     run_classifier(vgg16_model, epochs, batch_size, data_batches, saving_path=saving_path_VGG16)
+    # evaluating_classifier(vgg16_model, data_batches, model_path=saving_path_VGG16)
 
     # Resnet18 freeze top layers
     resnet18_model = models.resnet18(pretrained=True)
@@ -170,5 +172,6 @@ if __name__ == '__main__':
     num_ftrs = resnet18_model.fc.in_features
     resnet18_model.fc = nn.Linear(num_ftrs, 4)
     print('Resnet18_freezing top layers: {}'.format(resnet18_model))
-    saving_path_resnet = './models/Resnet18_freeze_top_layers.pth'
+    saving_path_resnet = '../models/Resnet18_freeze_top_layers.pth'
     run_classifier(resnet18_model, epochs, batch_size, data_batches, saving_path=saving_path_resnet)
+    # evaluating_classifier(resnet18_model, data_batches, model_path=saving_path_resnet)
