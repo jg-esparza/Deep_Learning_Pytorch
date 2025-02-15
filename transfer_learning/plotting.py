@@ -2,14 +2,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from torchvision.utils import make_grid
 
-from load_data import mean, std
+from data_utils import mean, std
 
 
 def make_grid_for_plotting(inputs):
+    """Creates a grid to show the samples."""
     return make_grid(inputs)
 
 
-def imshow(inp, title):
+def imshow(inputs, title):
+    """Shows a sample image."""
+    inp = make_grid_for_plotting(inputs)
     inp = inp.cpu().numpy().transpose((1, 2, 0))
     inp = std * inp + mean
     inp = np.clip(inp, 0, 1)
