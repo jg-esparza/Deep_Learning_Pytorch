@@ -1,7 +1,9 @@
 import copy
 import torch
 from data_utils import iterate_dataloader
-from plotting import imshow, make_grid_for_plotting
+
+from data_utils import getting_total_batch_sizes
+from plotting import imshow
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -69,7 +71,7 @@ def load_model(model, path):
     return model.load_state_dict(torch.load(path))
 
 
-def train_model(model, criterion, optimizer, scheduler, dataloaders, total_batch_sizes, batch_size, num_epochs=20):
+def train_model(model, criterion, optimizer, scheduler, dataloaders, batch_size, num_epochs=20):
     """Trains model on the given dataset.
 
     Encapsulates training loop"""
@@ -78,6 +80,7 @@ def train_model(model, criterion, optimizer, scheduler, dataloaders, total_batch
     best_acc = 0.0
     best_model_wts = copy_best_model_weights(model)
 
+    total_batch_sizes = getting_total_batch_sizes(dataloaders['train'], dataloaders['test'])
     for epoch in range(num_epochs):
 
         show_current_epoch(epoch, num_epochs)

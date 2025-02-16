@@ -21,12 +21,17 @@ def getting_classes_names(dataset):
     return dataset.classes
 
 
+def getting_number_of_classes(dataset):
+    """Return number of classes in dataset."""
+    return len(getting_classes_names(dataset))
+
+
 def getting_total_batch_sizes(train_loader, test_loader):
     """Get total batch sizes."""
     return {'train': len(train_loader), 'test': len(test_loader)}
 
 
-def to_dict(train_loader, test_loader):
+def create_dict_dataloaders(train_loader, test_loader):
     """Saves train and test batches into dictionary."""
     return {
         'train': train_loader,
